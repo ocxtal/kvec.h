@@ -13,7 +13,7 @@ int main() {
 	kv_init(array);
 	kv_push(array, 10);			// append, kv_push(int, array, 10) in the original impl. in klib
 	kv_a(array, 20) = 5;		// dynamic, kv_a(int, a, 20) in klib
-	kv_pusha(long, 10);			// push arbitrary sized element, the similar operation as kv_push in klib do
+	kv_pusha(long, array, 10);	// push arbitrary sized element, the similar operation as kv_push in klib do
 	kv_A(array, 20) = 4;		// static
 	kv_destroy(array);
 	return 0;

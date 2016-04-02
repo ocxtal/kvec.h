@@ -64,7 +64,7 @@ int main() {
 #include <stdint.h>
 
 #define kv_roundup32(x) (--(x), (x)|=(x)>>1, (x)|=(x)>>2, (x)|=(x)>>4, (x)|=(x)>>8, (x)|=(x)>>16, ++(x))
-#define kv_roundup(x, base)			( ((x) + (base) - 1) & ~((base) - 1) )
+#define kv_roundup(x, base)			( (((x) + (base) - 1) / (base)) * (base) )
 
 
 #define _INIT 			( 256 )
@@ -107,12 +107,14 @@ int main() {
 	 (v).a = realloc((v).a, sizeof(*(v).a) * (v).m), 0)	\
 	: 0), ( (v).a + ((v).n++) )
 
-#define kv_pusha(elem_t, v) do { \
-		uint64_t size = sizeof(elem_t)
-		if(sizeof(*(v).a) * ((v).m - (v).n) < sizeof(elem_t)) { \
+/* kv_pusha will not check the alignment of elem_t */
+#define kv_pusha(elem_t, v, x) do { \
+		uint64_t size = kv_roundup(sizeof(elem_t), sizeof(*(v).a)); \
+		if(sizeof(*(v).a) * ((v).m - (v).n) < size) { \
 			(v).m = (v).m * 2;								\
 			(v).a = realloc((v).a, sizeof(*(v).a) * (v).m);	\
 		} \
+		*((elem_t *)&((v).a[(v).n])) = (x); \
 	} while(0)
 
 #define kv_a(v, i) ( \
