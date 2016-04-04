@@ -115,6 +115,7 @@ int main() {
 			(v).a = realloc((v).a, sizeof(*(v).a) * (v).m);	\
 		} \
 		*((elem_t *)&((v).a[(v).n])) = (x); \
+		(v).n += size / sizeof(*(v).a); \
 	} while(0)
 
 #define kv_a(v, i) ( \
