@@ -170,8 +170,8 @@ int main() {
 #define kv_hq_pop(v) ({ \
 	uint64_t i = 1, j = 2; \
 	v.a[0] = v.a[i]; \
-	v.a[i] = v.a[v.n - 1]; \
-	v.a[--v.n] = v.a[0]; \
+	v.a[i] = v.a[--v.n]; \
+	v.a[v.n] = v.a[0]; \
 	while(j < v.n) { \
 		uint64_t k; \
 		k = (j + 1 < v.n && kv_hq_n(v, j + 1) < kv_hq_n(v, j)) ? (j + 1) : j; \

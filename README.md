@@ -1,6 +1,6 @@
 # kvec.h
 
-Based on [klib](https://github.com/attractivechaos/klib), modified for a simpler style. 2-bit packed vector is also added (as `kpvec_t(type_of_container)`).
+Based on [klib](https://github.com/attractivechaos/klib), modified for a simpler style. 2-bit packed vector and heap queue are also added (as `kpvec_t(type_of_container)` and `kv_hq_*`).
 
 ## Usage
 
@@ -35,6 +35,20 @@ int main() {
 }
 ```
 
+heap queue
+
+```
+#include <stdint.h>
+#include "kvec.h"
+int main() {
+	kvec_t(int64_t) hq;		// the first element of the object must be int64_t
+	kv_hq_init(hq);
+	kv_hq_push(hq, 10);
+	kv_hq_pop(hq);
+	kv_destroy(hq);
+	return 0;
+}
+```
 
 ## License
 
