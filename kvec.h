@@ -145,11 +145,11 @@ int main() {
 #define kv_ptr(v)  ( (v).a )
 
 /** heap queue : elements in v must be orderd in heap */
-#define kv_hq_init(v)		{ kv_init(v); (void)kv_pushp(v); }
+#define kv_hq_init(v)		{ kv_init(v); (v).n = 1; }
 #define kv_hq_destroy(v)	kv_destroy(v)
 #define kv_hq_size(v)		( kv_size(v) - 1 )
 #define kv_hq_max(v)		( kv_max(v) - 1 )
-#define kv_hq_clear(v)		{ kv_clear(v); }
+#define kv_hq_clear(v)		( (v).n = 1 )
 
 #define kv_hq_resize(v, s)	( kv_resize(v, (s) + 1) )
 #define kv_hq_reserve(v, s)	( kv_reserve(v, (s) + 1) )
@@ -158,6 +158,7 @@ int main() {
 
 #define kv_hq_n(v, i) ( *((int64_t *)&v.a[i]) )
 #define kv_hq_push(v, x) { \
+	debug("push, n(%llu), m(%llu)", (v).n, (v).m); \
 	kv_push(v, x); \
 	uint64_t i = (v).n - 1; \
 	while(i > 1 && (kv_hq_n(v, i>>1) > kv_hq_n(v, i))) { \
@@ -168,6 +169,7 @@ int main() {
 	} \
 }
 #define kv_hq_pop(v) ({ \
+	debug("push, n(%llu), m(%llu)", (v).n, (v).m); \
 	uint64_t i = 1, j = 2; \
 	(v).a[0] = (v).a[i]; \
 	(v).a[i] = (v).a[--(v).n]; \
