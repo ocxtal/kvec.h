@@ -67,7 +67,7 @@ int main() {
 #include <string.h>
 #include <stdint.h>
 
-#define kv_roundup32(x) (--(x), (x)|=(x)>>1, (x)|=(x)>>2, (x)|=(x)>>4, (x)|=(x)>>8, (x)|=(x)>>16, ++(x))
+// #define kv_roundup32(x) (--(x), (x)|=(x)>>1, (x)|=(x)>>2, (x)|=(x)>>4, (x)|=(x)>>8, (x)|=(x)>>16, ++(x))
 #define kv_roundup(x, base)			( (((x) + (base) - 1) / (base)) * (base) )
 
 
@@ -135,7 +135,7 @@ int main() {
 
 #define kv_a(v, i) ( \
 	((v).m <= (size_t)(i) ? \
-	((v).m = (v).n = (i) + 1, kv_roundup32((v).m), \
+	((v).m = (v).n = (i) + 1, kv_roundup((v).m, 32), \
 	 (v).a = realloc((v).a, sizeof(*(v).a) * (v).m), 0) \
 	: (v).n <= (size_t)(i) ? (v).n = (i) + 1 \
 	: 0), (v).a[(i)])
@@ -267,7 +267,7 @@ int main() {
 
 #define kpv_a(v, i) ( \
 	((v).m <= (size_t)(i)? \
-	((v).m = (v).n = (i) + 1, kv_roundup32((v).m), \
+	((v).m = (v).n = (i) + 1, kv_roundup((v).m, 32), \
 	 (v).a = realloc((v).a, sizeof(*(v).a) * (v).m), 0) \
 	: (v).n <= (size_t)(i)? (v).n = (i) + 1 \
 	: 0), kpv_mask(v, (v).a[(i) / kpv_elems(v)]>>kpv_base(v, i)) )
