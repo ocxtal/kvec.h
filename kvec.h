@@ -71,13 +71,13 @@ int main() {
 #define kv_roundup(x, base)			( (((x) + (base) - 1) / (base)) * (base) )
 
 
-#define _INIT 			( 256 )
+#define KVEC_INIT_SIZE 			( 256 )
 
 /**
  * basic vectors (kv_*)
  */
 #define kvec_t(type)    struct { uint64_t n, m; type *a; }
-#define kv_init(v)      ({ (v).n = 0; (v).m = _INIT; (v).a = calloc((v).m, sizeof(*(v).a)); (v); })
+#define kv_init(v)      ({ (v).n = 0; (v).m = KVEC_INIT_SIZE; (v).a = calloc((v).m, sizeof(*(v).a)); (v); })
 #define kv_destroy(v)   { free((v).a); (v).a = NULL; }
 // #define kv_A(v, i)      ( (v).a[(i)] )
 #define kv_pop(v)       ( (v).a[--(v).n] )
@@ -201,7 +201,7 @@ int main() {
 #define kpv_mask(v, e)  ( (e) & ((1<<_BITS) - 1) )
 
 #define kpvec_t(type)       struct { uint64_t n, m; type *a; }
-#define kpv_init(v)         ( (v).n = 0, (v).m = _INIT * kpv_elems(v), (v).a = calloc((v).m, sizeof(*(v).a)) )
+#define kpv_init(v)         ( (v).n = 0, (v).m = KVEC_INIT_SIZE * kpv_elems(v), (v).a = calloc((v).m, sizeof(*(v).a)) )
 #define kpv_destroy(v)      { free((v).a); (v).a = NULL; }
 
 // #define kpv_A(v, i) ( kpv_mask(v, (v).a[(i) / kpv_elems(v)]>>kpv_base(v, i)) )
