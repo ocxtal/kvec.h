@@ -226,7 +226,7 @@ int main() {
 		if ((v1).m < (v0).n) kpv_resize(v1, (v0).n);	\
 		(v1).n = (v0).n;								\
 		memcpy((v1).a, (v0).a, kpv_amax(v));				\
-	} while (0)											\
+	} while (0)
 /*
 #define kpv_push(v, x) do {								\
 		if ((v).n == (v).m) {							\
