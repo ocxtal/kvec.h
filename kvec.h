@@ -254,7 +254,7 @@ int main() {
 		(v).n++; \
 	} while (0)
 
-/* *
+/*
  * kpv_pushp is not supported
  */
 #if 0
